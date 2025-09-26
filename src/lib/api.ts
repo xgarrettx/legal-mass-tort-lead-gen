@@ -1,8 +1,7 @@
 import { ContactData, FormData } from '@/types/form';
 
 // Get API endpoint from environment variables
-const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || 
-  'https://script.google.com/macros/s/AKfycbyjUdbIBpq2LCSrMwXUBO9K8opgk_-0VQ1Poptiyd7veCJugbXhWsr92YfaN2SXLecE/exec';
+const API_ENDPOINT = "/api/submit-lead";
 
 const DEBUG_MODE = process.env.NEXT_PUBLIC_DEBUG_MODE === 'true';
 
