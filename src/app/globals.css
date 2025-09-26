@@ -53,12 +53,38 @@ body {
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-text);
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.logo-svg {
+  height: 40px;
+  width: auto;
+}
+
+.logo-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo-svg {
+  height: 28px;
+  width: auto;
+}
+
+.footer-logo-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .disclosure-link {
@@ -366,6 +392,22 @@ body {
   .logo {
     position: static;
     transform: none;
+  }
+
+  .logo-svg {
+    height: 32px;
+  }
+
+  .logo-text {
+    font-size: 22px;
+  }
+
+  .footer-logo-svg {
+    height: 24px;
+  }
+
+  .footer-logo-text {
+    font-size: 18px;
   }
 
   .header-content {
