@@ -58,3 +58,13 @@ export const trackButtonClick = (buttonName: string, stepNumber: number) => {
     step_number: stepNumber
   });
 };
+
+// Track form abandonment
+export const trackFormAbandonment = (lastStep: number, stepName: string) => {
+  event('form_abandoned', {
+    event_category: 'Lead Generation Flow',
+    last_step_reached: lastStep,
+    last_step_name: stepName,
+    funnel_stage: 'abandoned'
+  });
+};

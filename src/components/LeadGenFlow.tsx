@@ -35,6 +35,21 @@ export default function LeadGenFlow() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+useEffect(() => {
+  // Track abandonment on page unload
+  const handleBeforeUnload = () => {
+    if (currentStep < 10 && currentStep > 1) {
+      trackFormAbandonment(currentStep, stepNames[currentStep - 1]);
+    }
+  };
+
+  window.addEventListener('beforeunload', handleBeforeUnload);
+
+  return () => {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+  };
+}, [currentStep]);
+
   // Track step views
   useEffect(() => {
     if (currentStep <= 10) {
@@ -131,4 +146,7 @@ export default function LeadGenFlow() {
       {renderCurrentStep()}
     </div>
   );
+
 }
+
+
