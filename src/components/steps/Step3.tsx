@@ -2,13 +2,20 @@
 
 import { useState } from 'react';
 import { StepProps } from '@/types/form';
+import { trackFieldInteraction, trackButtonClick } from '@/lib/analytics';
 
 export default function Step3({ onNext, onSelect }: StepProps) {
   const [numBets, setNumBets] = useState('');
 
   const handleChange = (value: string) => {
-    setNumBets(value);
+    setSelectedApp(value);
     onSelect('step3', value);
+    trackFieldInteraction('amount_bets', value);
+  };
+
+  const handleNext = () => {
+    trackButtonClick('Continue from amount of bets', 3);
+    onNext();
   };
 
   return (

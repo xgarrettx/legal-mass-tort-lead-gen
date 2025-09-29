@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ContactData } from '@/types/form';
+import { trackFieldInteraction, trackButtonClick } from '@/lib/analytics';
 
 interface Step9Props {
   onSubmit: (contactData: ContactData) => void;
@@ -21,12 +22,15 @@ export default function Step9({ onSubmit, isSubmitting = false, submitError }: S
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!isSubmitting) {
+      trackButtonClick('Submit Contact Information', 9);
       onSubmit(contactData);
     }
   };
 
   const handleChange = (field: keyof ContactData, value: string) => {
     setContactData(prev => ({ ...prev, [field]: value }));
+    // Track field interactions (but don't send actual PII values)
+    trackFieldInteraction(`contact_${field}`, field === 'zipCode' ? value : 'entered');
   };
 
   const isFormValid = contactData.firstName && 

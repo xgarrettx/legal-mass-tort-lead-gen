@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { StepProps } from '@/types/form';
+import { trackFieldInteraction, trackButtonClick } from '@/lib/analytics';
 
 export default function Step7({ onNext, onSelect }: StepProps) {
   const [dob, setDob] = useState('');
@@ -9,6 +10,12 @@ export default function Step7({ onNext, onSelect }: StepProps) {
   const handleChange = (value: string) => {
     setDob(value);
     onSelect('step7', value);
+    trackFieldInteraction('dob', value);
+      };
+
+  const handleNext = () => {
+    trackButtonClick('Continue from date of birth', 7);
+    onNext();
   };
 
   return (

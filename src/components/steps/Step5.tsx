@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { StepProps } from '@/types/form';
 import { HEALTH_CONDITIONS } from '@/lib/constants';
+import { trackFieldInteraction, trackButtonClick } from '@/lib/analytics';
 
 export default function Step5({ onNext, onSelect }: StepProps) {
   const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
@@ -14,7 +15,15 @@ export default function Step5({ onNext, onSelect }: StepProps) {
     
     setSelectedConditions(updatedConditions);
     onSelect('step5', updatedConditions);
+    trackFieldInteraction('gambling_conditions', value);
+
   };
+
+  const handleNext = () => {
+    trackButtonClick('Continue from gambling conditions', 5);
+    onNext();
+  };
+
 
   return (
     <div className="step">

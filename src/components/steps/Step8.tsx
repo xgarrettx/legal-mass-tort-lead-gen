@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { StepProps } from '@/types/form';
+import { trackFieldInteraction, trackButtonClick } from '@/lib/analytics';
 
 export default function Step8({ onNext, onSelect }: StepProps) {
   const [startAge, setStartAge] = useState('');
@@ -9,6 +10,12 @@ export default function Step8({ onNext, onSelect }: StepProps) {
   const handleChange = (value: string) => {
     setStartAge(value);
     onSelect('step8', value);
+    trackFieldInteraction('start_age', value);
+  };
+
+  const handleNext = () => {
+    trackButtonClick('Continue from start betting age', 8);
+    onNext();
   };
 
   return (

@@ -1,9 +1,11 @@
 'use client';
 
 import { StepProps } from '@/types/form';
+import { trackButtonClick } from '@/lib/analytics';
 
 export default function Step1({ onNext, onSelect }: StepProps) {
   const handleSelect = (value: string) => {
+    trackButtonClick(`Lost Money: ${value}`, 1);
     onSelect('step1', value);
     setTimeout(() => {
       onNext();
