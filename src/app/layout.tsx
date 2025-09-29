@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Google Analytics */}
-        {GA_MEASUREMENT_ID && (
+        {GA_MEASUREMENT_ID ? (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
@@ -29,15 +29,21 @@ export default function RootLayout({
             />
             <Script id="google-analytics" strategy="afterInteractive">
               {`
+                console.log('GA4 Initializing with ID: ${GA_MEASUREMENT_ID}');
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', '${GA_MEASUREMENT_ID}', {
                   page_path: window.location.pathname,
                 });
+                console.log('GA4 Configured');
               `}
             </Script>
           </>
+        ) : (
+          <Script id="ga-missing" strategy="afterInteractive">
+            {`console.error('GA4 Measurement ID is missing!');`}
+          </Script>
         )}
       </head>
       <body>
