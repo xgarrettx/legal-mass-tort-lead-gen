@@ -5,7 +5,9 @@ import { StepProps } from '@/types/form';
 import { trackFieldInteraction, trackButtonClick } from '@/lib/analytics';
 
 export default function Step3({ onNext, onSelect }: StepProps) {
-  const [numBets, setNumBets] = useState<string>('');
+  // ✅ Add this line — it creates setSelectedApp
+  const [selectedApp, setSelectedApp] = useState<string>('');
+
 
   const handleChange = (value: string) => {
     setSelectedApp(value);
