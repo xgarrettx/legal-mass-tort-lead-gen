@@ -15,6 +15,7 @@ import Step7 from './steps/Step7';
 import Step8 from './steps/Step8';
 import Step9 from './steps/Step9';
 import SuccessStep from './steps/SuccessStep';
+import { trackFieldInteraction, trackButtonClick, trackFormAbandonment } from '@/lib/analytics';
 
 const stepNames = [
   'Lost Money Question',

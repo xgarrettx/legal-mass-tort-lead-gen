@@ -69,7 +69,7 @@ export const trackButtonClick = (buttonName: string, stepNumber: number) => {
 
 // Track form abandonment
 export const trackFormAbandonment = (lastStep: number, stepName: string) => {
-  event('form_abandoned', {
+  event('form_abandonment', {
     event_category: 'Lead Generation Flow',
     last_step_reached: lastStep,
     last_step_name: stepName,

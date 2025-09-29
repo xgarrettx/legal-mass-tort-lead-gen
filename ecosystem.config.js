@@ -4,7 +4,7 @@ module.exports = {
       name: 'gamblinglawsuit',
       script: 'npm',
       args: 'start',
-      cwd: '/home/nextapp/legal-mass-tort-lead-gen',
+      cwd: '/var/www/gambling',
       instances: 1,
       autorestart: true,
       watch: false,
