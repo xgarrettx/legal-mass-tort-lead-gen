@@ -52,13 +52,13 @@ useEffect(() => {
 }, [currentStep]);
 
   // Track step views
-  useEffect(() => {
-    if (currentStep <= 10) {
-      trackStep(currentStep, stepNames[currentStep - 1], {
-        form_data: formData
-      });
-    }
-  }, [currentStep]);
+useEffect(() => {
+  if (currentStep <= 10) {
+    trackStep(currentStep, stepNames[currentStep - 1], {
+      form_data: formData
+    });
+  }
+}, [currentStep, formData]);
 
   const handleSelect = (stepKey: string, value: any) => {
     setFormData(prev => ({ ...prev, [stepKey]: value }));
