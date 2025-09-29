@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'legal-mass-tort-app',
+      name: 'gamblinglawsuit',
       script: 'npm',
       args: 'start',
       cwd: '/home/nextapp/legal-mass-tort-lead-gen',
@@ -11,7 +11,8 @@ module.exports = {
       max_memory_restart: '1G',
       env: {
         NODE_ENV: 'production',
-        PORT: 3000
+        PORT: 3000,
+        NEXT_PUBLIC_GA_MEASUREMENT_ID: 'G-7NRXBXD9SY'
       },
       error_file: './logs/err.log',
       out_file: './logs/out.log',
