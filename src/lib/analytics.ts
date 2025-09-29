@@ -1,6 +1,14 @@
 // Google Analytics utility functions
 
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const GA_DEBUG = process.env.NEXT_PUBLIC_GA_DEBUG === 'true';
+
+// Enable debug mode
+if (typeof window !== 'undefined' && GA_DEBUG) {
+  window.gtag('config', GA_MEASUREMENT_ID as string, {
+    debug_mode: true
+  });
+}
 
 // Track page views
 export const pageview = (url: string) => {
