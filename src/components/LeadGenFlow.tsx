@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FormData, ContactData } from '@/types/form';
 import { submitLead } from '@/lib/api';
+import { trackStep, trackFormSubmission } from '@/lib/analytics';
 import ProgressBar from './ProgressBar';
 import Step1 from './steps/Step1';
 import Step2 from './steps/Step2';
@@ -15,11 +16,33 @@ import Step8 from './steps/Step8';
 import Step9 from './steps/Step9';
 import SuccessStep from './steps/SuccessStep';
 
+const stepNames = [
+  'Lost Money Question',
+  'Betting Apps Selection',
+  'Number of Bets',
+  'Health Condition Question',
+  'Health Conditions Selection',
+  'Loss Amount Selection',
+  'Date of Birth',
+  'Age Started Betting',
+  'Contact Information',
+  'Success'
+];
+
 export default function LeadGenFlow() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  // Track step views
+  useEffect(() => {
+    if (currentStep <= 10) {
+      trackStep(currentStep, stepNames[currentStep - 1], {
+        form_data: formData
+      });
+    }
+  }, [currentStep]);
 
   const handleSelect = (stepKey: string, value: any) => {
     setFormData(prev => ({ ...prev, [stepKey]: value }));
@@ -40,10 +63,30 @@ export default function LeadGenFlow() {
     
     try {
       await submitLead(formData, contactData);
+      
+      // Track successful submission
+      trackFormSubmission(true, {
+        form_data: formData,
+        contact_data: {
+          ...contactData,
+          // Don't send PII to analytics
+          email: 'provided',
+          phone: 'provided',
+          firstName: 'provided',
+          lastName: 'provided'
+        }
+      });
+      
       setCurrentStep(10); // Success step
     } catch (error) {
       console.error('Submission error:', error);
-      setSubmitError(error instanceof Error ? error.message : 'Failed to submit form. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'Failed to submit form. Please try again.';
+      setSubmitError(errorMessage);
+      
+      // Track failed submission
+      trackFormSubmission(false, {
+        error: errorMessage
+      });
     } finally {
       setIsSubmitting(false);
     }
